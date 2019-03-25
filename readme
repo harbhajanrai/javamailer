@@ -1,0 +1,7 @@
+javaEmail is simple program to send email using program.
+Requirement : 
+  java 8 or above
+  javax mail jar
+  emailid and password
+  
+Working on it to make it more modular and GUI which will enable different email vender at one place
