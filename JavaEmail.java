@@ -11,9 +11,31 @@
 import java.util.Properties;    
 import java.util.Scanner;
 import javax.mail.*;    
-import javax.mail.internet.*;    
+import javax.mail.internet.*;
+
+class Mail{
+    private String subject;
+    private String message;
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}
+
 class Mailer{
-    public static void send(String from,String password,String to){
+    public static void send(String from,String password,String to, Mail mail){
         
         //Get properties object
         Properties props = new Properties();
@@ -38,12 +60,12 @@ class Mailer{
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
             
             // set subject to mail
-            String sub = "enter you subject";
-            message.setSubject(sub);
+            // String sub = "enter you subject";
+            message.setSubject(mail.getSubject());
             
-            //set message in mail
-            String msg = "enter body of the mail";
-            message.setText(msg, "UTF-8");
+            // set message in mail
+            // String msg = "enter body of the mail";
+            message.setText(mail.getMessage(), "UTF-8");
             
             //send message
             Transport.send(message);
@@ -70,6 +92,17 @@ public class JavaEmail{
         //emailid to whom email has to be sent
         System.out.print("Email to whom mail has to be sent : ");
         String to = in.nextLine();
-        Mailer.send(from, password, to);
+
+        // create object of mail
+        Mail mail = new Mail();
+
+        // set subject for the mail
+        String subject = in.nextLine();
+        mail.setSubject(subject);
+
+        //set Message for the mail
+        String message = in.nextLine();
+        mail.setMessage(message);
+        Mailer.send(from, password, to, mail);
     }   
 } 
